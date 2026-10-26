@@ -65,7 +65,6 @@ export default function BVProductList() {
               mrp: variant.price,
               offer_price: variant.offer_price,
               bv: variant.bv,
-              cashback: variant.cashback,
             }),
           ),
         );
@@ -149,7 +148,6 @@ export default function BVProductList() {
       formatCurrencyForPdf(row.mrp),
       formatCurrencyForPdf(row.offer_price),
       row.bv ?? "--",
-      `${Number(row.cashback || 0)}%`,
     ]);
 
     autoTable(pdf, {
@@ -162,7 +160,6 @@ export default function BVProductList() {
           "MRP",
           "Offer Price",
           "BV",
-          "Cashback",
         ],
       ],
       body: tableData,
@@ -189,8 +186,7 @@ export default function BVProductList() {
             BV Product List
           </h1>
           <p className="text-gray-500 mt-1 text-sm">
-            View packing size, MRP, offer price, BV and cashback for all
-            products
+            View packing size, MRP, offer price and BV for all products
           </p>
         </div>
 
@@ -235,10 +231,7 @@ export default function BVProductList() {
                     <th className="py-2 md:py-3 px-2 md:px-4 whitespace-nowrap">
                       Offer Price
                     </th>
-                    <th className="py-2 md:py-3 px-2 md:px-4">BV</th>
-                    <th className="py-2 md:py-3 px-2 md:px-4 rounded-r-xl whitespace-nowrap">
-                      Cashback
-                    </th>
+                    <th className="py-2 md:py-3 px-2 md:px-4 rounded-r-xl">BV</th>
                   </tr>
                 </thead>
 
@@ -266,9 +259,6 @@ export default function BVProductList() {
                         </td>
                         <td className="py-2 md:py-4 px-2 md:px-4">
                           {row.bv ?? "--"}
-                        </td>
-                        <td className="py-2 md:py-4 px-2 md:px-4 whitespace-nowrap">
-                          {Number(row.cashback || 0)}%
                         </td>
                       </tr>
                     ))

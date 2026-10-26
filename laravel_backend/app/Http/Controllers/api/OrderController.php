@@ -123,13 +123,13 @@ $totalCashback = 0;
     ? $variant->offer_price
     : $variant->price;
 
-// Calculate cashback for this item
-$cashbackPercent = (float) ($variant->cashback ?? 0);
+// Calculate cashback for this item (fixed ₹ per unit, capped at item price)
+$cashbackPerUnit = (float) ($variant->cashback ?? 0);
 
-$totalCashback += (
-    ($price * $item->quantity)
-    * $cashbackPercent
-) / 100;
+$totalCashback += min(
+    $cashbackPerUnit * $item->quantity,
+    $price * $item->quantity
+);
 
 $totalAmount += $price * $item->quantity;
 $totalQty    += $item->quantity;

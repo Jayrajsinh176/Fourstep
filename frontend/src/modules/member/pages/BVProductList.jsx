@@ -79,7 +79,6 @@ export default function BVProductList() {
               mrp: variant.price,
               offer_price: variant.offer_price,
               bv: variant.bv,
-              cashback: variant.cashback,
             }),
           ),
         );
@@ -139,11 +138,6 @@ export default function BVProductList() {
       header: "BV",
       render: (row) => row.bv ?? "--",
     },
-    {
-      key: "cashback",
-      header: "Cashback",
-      render: (row) => `${Number(row.cashback || 0)}%`,
-    },
   ];
 
   const totalPages = Math.ceil(rows.length / ROWS_PER_PAGE);
@@ -198,7 +192,6 @@ export default function BVProductList() {
       formatCurrencyForPdf(row.mrp),
       formatCurrencyForPdf(row.offer_price),
       row.bv ?? "--",
-      `${Number(row.cashback || 0)}%`,
     ]);
 
     autoTable(pdf, {
@@ -211,7 +204,6 @@ export default function BVProductList() {
           "MRP",
           "Offer Price",
           "BV",
-          "Cashback",
         ],
       ],
       body: tableData,
@@ -244,7 +236,7 @@ export default function BVProductList() {
                 BV Product List
               </h1>
               <p className="text-gray-500 mt-1 text-sm">
-                View packing size, MRP, offer price, BV and cashback for all products
+                View packing size, MRP, offer price and BV for all products
               </p>
             </div>
 

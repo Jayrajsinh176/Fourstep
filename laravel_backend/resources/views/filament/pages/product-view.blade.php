@@ -228,7 +228,7 @@
     </div>
 
     <div style="font-weight:700;">
-        {{ number_format($variant->cashback ?? 0, 2) }}
+        ₹{{ number_format($variant->cashback ?? 0, 2) }}
     </div>
 </div>
 <div>

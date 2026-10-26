@@ -320,8 +320,21 @@ Forms\Components\Select::make('orderTypes')
 
                     // ✅ CASHBACK
                     Forms\Components\TextInput::make('cashback')
+                        ->label('Cashback (₹)')
                         ->numeric()
-                        ->default(0),
+                        ->prefix('₹')
+                        ->minValue(0)
+                        ->default(0)
+                        ->rules([
+                            fn (callable $get) => function (string $attribute, $value, \Closure $fail) use ($get) {
+                                $offerPrice = (float) $get('offer_price');
+                                $maxPrice   = $offerPrice > 0 ? $offerPrice : (float) $get('price');
+
+                                if ($maxPrice > 0 && (float) $value > $maxPrice) {
+                                    $fail('Cashback cannot be more than offer price (₹' . number_format($maxPrice, 2) . ').');
+                                }
+                            },
+                        ]),
                         
                       Forms\Components\TextInput::make('mega_branch_commission')
     ->label('Mega Branch %')
